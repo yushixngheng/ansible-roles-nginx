@@ -1,0 +1,5 @@
+#file roles/nginx/defaults/main.yml
+---
+nginx_version:
+nginx_basedir: /etc/nginx
+nginx_htmldir: /usr/share/nginx/html

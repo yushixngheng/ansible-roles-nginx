@@ -1,0 +1,37 @@
+server {
+  listen 80 default_server;
+  server_name _;
+
+  access_log /var/log/nginx/{{ app_name }}.access.log main;
+  error_log  /var/log/nginx/{{ app_name }}.error.log;
+
+  root {{ app_root }};
+  client_max_body_size 5M;
+
+  location /nginx_status {
+    stub_status on;
+    #allow 127.0.0.0/8;
+    #allow 172.16.0.0/12;
+    #deny  all;
+  }
+
+  location /zabbix {
+    if (!-e $request_filename) {
+      rewrite ^/.* /index.php last;
+    }
+  }
+
+  location ~ \.php {
+    fastcgi_pass    127.0.0.1:9000;
+    fastcgi_index   index.php;
+    fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+    # 以下解决用php输出js,css等文件导致出错的问题
+    gzip on;
+    gzip_min_length 1100;
+    gzip_buffers 4 8k;
+    gzip_types text/plain application/x-javascript text/css image;
+    proxy_buffering off;
+  }
+
+}

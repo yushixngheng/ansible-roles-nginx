@@ -1,0 +1,7 @@
+#file roles/nginx/tasks/service.yml
+---
+
+- name: start the Nginx service ###第一次搭建安装和配置完配置文件是调用
+  service:
+    name: nginx
+    state: started

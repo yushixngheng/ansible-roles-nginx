@@ -1,0 +1,26 @@
+#file roles/nginx/tasks/apt.yml
+---
+
+- name: Add the nginx ubuntu mainline repository
+  apt_repository:
+    repo: 'deb http://nginx.org/packages/mainline/ubuntu/ trusty nginx'
+    state: present
+    filename: nginx
+    update_cache: yes
+
+- name: add Nginx.org key
+  apt_key:
+    url: http://nginx.org/keys/nginx_signing.key
+    state: present
+
+- name: run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+
+- name: install Nginx with default version
+  apt:
+    name: nginx
+    update_cache: yes
+    state: present
+    force: yes
+

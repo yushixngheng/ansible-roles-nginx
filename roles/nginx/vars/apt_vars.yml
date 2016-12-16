@@ -1,0 +1,5 @@
+#file roles/nginx/vars/apt_vars.yml
+---
+
+nginx_user: nobody
+

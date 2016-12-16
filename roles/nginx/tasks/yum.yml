@@ -1,0 +1,18 @@
+#file roles/nginx/tasks/yum.yml
+---
+
+- name: Add repository
+  yum_repository:
+    name: nginx
+    description: nginx YUM repo
+    baseurl: "{{ repo_url }}"
+    gpgkey: "{{ repo_key }}"
+    async: yes
+    enabled: yes
+
+- name: Install initializtion require software
+  yum:
+    name: nginx
+    enablerepo: nginx
+    state: present
+

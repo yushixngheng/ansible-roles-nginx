@@ -1,0 +1,12 @@
+#file roles/nginx/vars/yum_vars.yml
+---
+
+repo_url: "http://nginx.org/packages/mainline/centos/{{ ansible_distribution_major_version }}/$basearch/"
+repo_key: "http://nginx.org/packages/keys/nginx_signing.key"
+nginx_user: nobody
+nginx:
+  worker_processes: 4
+  worker_connections: 1024
+  elb_ip_cidr: 172.16.0.0/12
+app_root: /var/www/zabbix
+app_name: zabbix
